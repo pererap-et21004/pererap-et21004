@@ -1,0 +1,28 @@
+mport java.util.Scanner;
+
+public class CentimeterToFeetInchesConverter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+       
+        System.out.print("Enter length in centimeters: ");
+        double centimeters = scanner.nextDouble();
+
+        
+        double inchesPerCentimeter = 2.54;
+        double feetPerInch = 12;
+
+      
+        double totalInches = centimeters / inchesPerCentimeter;
+
+       
+        int feet = (int) (totalInches / feetPerInch);
+        double inches = totalInches % feetPerInch;
+
+        
+        System.out.printf("%.2f cm is approximately %d feet and %.2f inches.%n", centimeters, feet, inches);
+        
+        
+        scanner.close();
+    }
+}
