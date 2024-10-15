@@ -1,0 +1,14 @@
+import java.util.Scanner;
+public class Main {
+public static void main(String[] args) {
+
+Scanner scanner = new Scanner(System.in);
+
+System.out.print("Enter your full name (first middle last): ");
+
+String fullName = scanner.nextLine();
+
+int firstSpaceIndex = fullName.indexOf(' ');
+int lastSpaceIndex = fullName.lastIndexOf(' ');
+
+String firstName = fullName.substring(0, firstSpaceIndex);
