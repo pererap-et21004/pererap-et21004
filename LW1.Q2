@@ -12,3 +12,16 @@ int firstSpaceIndex = fullName.indexOf(' ');
 int lastSpaceIndex = fullName.lastIndexOf(' ');
 
 String firstName = fullName.substring(0, firstSpaceIndex);
+String middleName = fullName.substring(firstSpaceIndex + 1,
+lastSpaceIndex);
+String lastName = fullName.substring(lastSpaceIndex + 1);
+
+String middleInitial = middleName.charAt(0) + ".";
+
+String formattedName = lastName + ", " + firstName + " " +
+middleInitial;
+
+System.out.println("Formatted name: " + formattedName);
+}
+}
+
