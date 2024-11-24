@@ -1,0 +1,323 @@
+import java.util.ArrayList;
+
+// Abstract class Person
+abstract class Person {
+    private String name;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public abstract void displayInfo();
+}
+
+// Lecturer class
+class Lecturer extends Person {
+    private String position;
+    private Department department;
+    private ArrayList<Course> coursesTeaching = new ArrayList<>();
+
+    public Lecturer(String name, String position) {
+        super(name);
+        this.position = position;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public void addCourse(Course course) {
+        coursesTeaching.add(course);
+    }
+
+    public void removeCourse(Course course) {
+        coursesTeaching.remove(course);
+    }
+
+    public void listCoursesTeaching() {
+        System.out.println("Courses taught by " + getName() + ":");
+        for (Course course : coursesTeaching) {
+            course.displayInfo();
+        }
+    }
+
+    public void displayDepartmentInfo() {
+        if (department != null) {
+            department.displayInfo();
+        } else {
+            System.out.println(getName() + " is not assigned to any department.");
+        }
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.println("Lecturer: " + getName() + ", Position: " + position);
+    }
+}
+
+// Student class
+class Student extends Person {
+    private String studentID;
+    private String year;
+    private Degree degree;
+    private ArrayList<Course> coursesEnrolled = new ArrayList<>();
+
+    public Student(String name, String studentID, String year) {
+        super(name);
+        this.studentID = studentID;
+        this.year = year;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public void registerDegree(Degree degree) {
+        this.degree = degree;
+    }
+
+    public void enrollCourse(Course course) {
+        coursesEnrolled.add(course);
+    }
+
+    public void unenrollCourse(Course course) {
+        coursesEnrolled.remove(course);
+    }
+
+    public void listCoursesEnrolled() {
+        System.out.println("Courses enrolled by " + getName() + ":");
+        for (Course course : coursesEnrolled) {
+            course.displayInfo();
+        }
+    }
+
+    public void displayDegreeInfo() {
+        if (degree != null) {
+            degree.displayInfo();
+        } else {
+            System.out.println(getName() + " is not registered for any degree.");
+        }
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.println("Student: " + getName() + ", ID: " + studentID + ", Year: " + year);
+    }
+}
+
+// Degree class
+class Degree {
+    private String name;
+    private int numberOfStudents;
+    private ArrayList<Course> coursesOffering = new ArrayList<>();
+
+    public Degree(String name, int numberOfStudents) {
+        this.name = name;
+        this.numberOfStudents = numberOfStudents;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getNumberOfStudents() {
+        return numberOfStudents;
+    }
+
+    public void setNumberOfStudents(int numberOfStudents) {
+        this.numberOfStudents = numberOfStudents;
+    }
+
+    public void offerCourse(Course course) {
+        coursesOffering.add(course);
+    }
+
+    public void withdrawCourse(Course course) {
+        coursesOffering.remove(course);
+    }
+
+    public void listCoursesOffering() {
+        System.out.println("Courses offered under " + name + " degree:");
+        for (Course course : coursesOffering) {
+            course.displayInfo();
+        }
+    }
+
+    public void displayInfo() {
+        System.out.println("Degree: " + name + ", Number of Students: " + numberOfStudents);
+    }
+}
+
+// Department class
+class Department {
+    private String name;
+    private Lecturer departmentHead;
+    private ArrayList<Course> coursesOffering = new ArrayList<>();
+    private ArrayList<Lecturer> lecturersBelongsTo = new ArrayList<>();
+
+    public Department(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void appointDepartmentHead(Lecturer lecturer) {
+        this.departmentHead = lecturer;
+    }
+
+    public void displayDepartmentHeadInfo() {
+        if (departmentHead != null) {
+            departmentHead.displayInfo();
+        } else {
+            System.out.println("No department head appointed for " + name + ".");
+        }
+    }
+
+    public void offerCourse(Course course) {
+        coursesOffering.add(course);
+    }
+
+    public void withdrawCourse(Course course) {
+        coursesOffering.remove(course);
+    }
+
+    public void addLecturer(Lecturer lecturer) {
+        lecturersBelongsTo.add(lecturer);
+    }
+
+    public void removeLecturer(Lecturer lecturer) {
+        lecturersBelongsTo.remove(lecturer);
+    }
+
+    public void displayInfo() {
+        System.out.println("Department: " + name);
+        displayDepartmentHeadInfo();
+    }
+}
+
+// Course class
+class Course {
+    private String name;
+    private String enrollType;
+    private int numberOfStudentsEnrolled;
+    private Lecturer lecturerInCharge;
+    private Degree degreeBelongsTo;
+
+    public Course(String name, String enrollType, int numberOfStudentsEnrolled) {
+        this.name = name;
+        this.enrollType = enrollType;
+        this.numberOfStudentsEnrolled = numberOfStudentsEnrolled;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEnrollType() {
+        return enrollType;
+    }
+
+    public void setEnrollType(String enrollType) {
+        this.enrollType = enrollType;
+    }
+
+    public int getNumberOfStudentsEnrolled() {
+        return numberOfStudentsEnrolled;
+    }
+
+    public void setNumberOfStudentsEnrolled(int numberOfStudentsEnrolled) {
+        this.numberOfStudentsEnrolled = numberOfStudentsEnrolled;
+    }
+
+    public void addLecturerInCharge(Lecturer lecturer) {
+        this.lecturerInCharge = lecturer;
+    }
+
+    public void addDegreeBelongsTo(Degree degree) {
+        this.degreeBelongsTo = degree;
+    }
+
+    public void displayInfo() {
+        System.out.println("Course: " + name + ", Enroll Type: " + enrollType + ", Students Enrolled: " + numberOfStudentsEnrolled);
+    }
+}
+
+// UniversityManagementSystem class
+public class UniversityManagementSystem {
+    public static void main(String[] args) {
+        // Creating departments
+        Department softwareEngineering = new Department("Software Engineering");
+
+        // Creating degrees
+        Degree computerScience = new Degree("Computer Science", 150);
+
+        // Creating courses
+        Course oop = new Course("Object-Oriented Programming", "Mandatory", 75);
+
+        // Creating lecturers
+        Lecturer lecturer1 = new Lecturer("Dr. Smith", "Professor");
+
+        // Creating students
+        Student student1 = new Student("Alice", "S123", "2024");
+
+        // Assign relationships
+        softwareEngineering.appointDepartmentHead(lecturer1);
+        lecturer1.setDepartment(softwareEngineering);
+        lecturer1.addCourse(oop);
+
+        computerScience.offerCourse(oop);
+
+        student1.registerDegree(computerScience);
+        student1.enrollCourse(oop);
+
+        // Display information
+        softwareEngineering.displayInfo();
+        lecturer1.displayInfo();
+        lecturer1.listCoursesTeaching();
+        student1.displayInfo();
+        student1.listCoursesEnrolled();
+        computerScience.listCoursesOffering();
+    }
+}
